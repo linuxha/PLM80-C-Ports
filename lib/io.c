@@ -26,6 +26,7 @@
 #include <sys/stat.h>
 #include <stdio.h>
 #include <string.h>
+#include <strings.h>
 #include <stdlib.h>
 #include <stdbool.h>
 #include "Generated/version.h"
@@ -202,7 +203,7 @@ int main(int argc, char **argv)
 	size_t len;
 	char *s, *progname;
 
-	if (argc == 2 && _stricmp(argv[1], "-v") == 0) {
+ if (argc == 2 && strcasecmp(argv[1], "-v") == 0) {
 		showVersion(stdout, argv[1][1] == 'V');
 		exit(0);
 	}
@@ -402,7 +403,7 @@ void Open(wpointer connP, pointer pathP, word access, word echo, wpointer status
 		return;
 	}
 
-	conn = open(osfile.name, mode, S_IREAD | S_IWRITE);
+conn = open((const char*)osfile.name, mode, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
 
 	if (conn < 0)
 		switch (errno) {

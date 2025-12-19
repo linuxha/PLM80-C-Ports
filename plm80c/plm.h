@@ -1,3 +1,5 @@
+#ifndef PLM_H
+#define PLM_H
 /****************************************************************************
  *  plm80: C port of Intel's ISIS-II PLM80 v4.0                             *
  *  Copyright (C) 2020 Mark Ogden <mark.pm.ogden@btinternet.com>            *
@@ -1628,3 +1630,4 @@ void WrnStrLst(pointer strP, word cnt);
 
 /* zerflg.plm */
 void ClrFlags(pointer base);
+#endif // PLM_H

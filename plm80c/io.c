@@ -202,7 +202,7 @@ int main(int argc, char **argv)
     char *s, *progname;
     word ovl;
 
-    if (argc == 2 && _stricmp(argv[1], "-v") == 0) {
+    if (argc == 2 && (strcmp(argv[1], "-v") == 0 || strcmp(argv[1], "-V") == 0)) {
         showVersion(stdout, "C port of Intel's ISIS-II PLM80 v4.0 -", argv[1][1] == 'V');
         exit(0);
     }
@@ -440,7 +440,7 @@ void Open(wpointer connP, pointer pathP, word access, word echo, wpointer status
         return;
     }
 
-    conn = open(osfile.name, mode, S_IREAD | S_IWRITE);
+    conn = open(osfile.name, mode, S_IRUSR | S_IWUSR | S_IRGRP | S_IWGRP | S_IROTH | S_IWOTH);
 
     if (conn < 0)
         switch (errno) {

@@ -20,14 +20,27 @@
  ****************************************************************************/
 
 
+#define _GNU_SOURCE
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
 #include <string.h>
+#include <strings.h>
 #include <ctype.h>
 
 void showVersion(FILE *fp, bool full);
+
+// Cross-platform string comparison functions for Linux compatibility
+#ifndef _WIN32
+int stricmp(const char *s1, const char *s2) {
+    return strcasecmp(s1, s2);
+}
+
+int strnicmp(const char *s1, const char *s2, size_t n) {
+    return strncasecmp(s1, s2, n);
+}
+#endif
 // intel OMF record types
 #define MODHDR  2
 #define MODEND  4
@@ -58,9 +71,9 @@ struct {
 
 
 // return the trailing filename part of the passed in path
-const char *basename(const char *path) {
+const char *getBasename(const char *path) {
     const char *t;
-    while (t = strpbrk(path, ":\\/"))       // allow windows & unix separators - will fail for unix if : in filename!!
+    while ((t = strpbrk(path, ":\\/")) != NULL)       // allow windows & unix separators - will fail for unix if : in filename!!
         path = t + 1;
     return path;
 }
@@ -222,7 +235,7 @@ void writeModHdr(FILE *fp, char *path) {
     } modhdr = { MODHDR };
 
     int i = 0;
-    for (const char *name = basename(path); *name && *name != '.'; name++)
+    for (const char *name = getBasename(path); *name && *name != '.'; name++)
         if (isalnum(*name) && i < MAXNAME)
             modhdr.name[i++] = toupper(*name);
     modhdr.nameLen = i;
@@ -354,7 +367,7 @@ int main(int argc, char **argv) {
     }
     // support both a standard command line and the original Intel one
     if (!parseStdOpt(argc, argv) && !parseIntelOpt(argc, argv)) {
-        const char *invoke = basename(argv[0]);
+        const char *invoke = getBasename(argv[0]);
         fprintf(stderr, "Invalid command line\n\n"
             "Usage: %s -v | -V | hexfile objfile [startaddr]\n"
             "Or:    %s hexfile TO objfile [$] [START ( startaddr ) ]\n", invoke, invoke);

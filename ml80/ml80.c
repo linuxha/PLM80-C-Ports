@@ -27,6 +27,14 @@
 #include <stdint.h>
 #include <stdbool.h>
 
+// Cross-platform string comparison functions for Linux compatibility
+#ifndef _WIN32
+#include <strings.h>
+int stricmp(const char *s1, const char *s2) {
+    return strcasecmp(s1, s2);
+}
+#endif
+
 void showVersion(FILE *fp, bool full);
 /*
       ml80 reconstructed from binary

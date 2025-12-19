@@ -27,13 +27,11 @@ static byte copyright[] = "(C) 1976, 1977, 1982 INTEL CORP";
 
 word markedStSP;
 word t2CntForStmt;
-word curProcInfoP = {0};
 word curStmtNum;
 var_t var;
 
 bool regetTx1Item = false;
 bool tx2LinfoPending = false;
-linfo_t linfo;
 tx1item_t tx1Item;
 byte tx1Aux2;
 byte tx1Aux1;

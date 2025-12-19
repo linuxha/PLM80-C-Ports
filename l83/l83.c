@@ -22,6 +22,7 @@
 
 #define _CRT_SECURE_NO_WARNINGS
 #define _CRT_NONSTDC_NO_WARNINGS
+#define _GNU_SOURCE  // for strdup
 
 #include <stdio.h>
 #include <string.h>
@@ -29,6 +30,32 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
+
+// Cross-platform compatibility
+#ifndef _WIN32
+#include <strings.h>
+int stricmp(const char *s1, const char *s2) {
+    return strcasecmp(s1, s2);
+}
+
+char *strlwr(char *str) {
+    char *p = str;
+    while (*p) {
+        if (*p >= 'A' && *p <= 'Z') *p += 32;
+        p++;
+    }
+    return str;
+}
+
+char *strupr(char *str) {
+    char *p = str;
+    while (*p) {
+        if (*p >= 'a' && *p <= 'z') *p -= 32;
+        p++;
+    }
+    return str;
+}
+#endif
 void showVersion(FILE *fp, bool full);
 
 #define SCODE	1
@@ -142,7 +169,8 @@ void Exit(int rcode) {
 }
 
 
-__declspec(noreturn) void Error(uint8_t n) {
+void Error(uint8_t n) __attribute__((noreturn));
+void Error(uint8_t n) {
     switch (n) {
     case 0:
         fprintf(stderr, "Too many modules\n");
@@ -391,7 +419,7 @@ void LstRef() {
     fprintf(fpPrn, " %s\n", &symList[sName]);
 }
 
-void main(int argc, char **argv) {
+int main(int argc, char **argv) {
     int i;
     uint16_t dirLen;
 
@@ -527,4 +555,5 @@ void main(int argc, char **argv) {
     for (i = 0; i <= mTop; i++)
         printf("%s\n", mName[i]);
     Exit(0);
+    return 0;  // Never reached due to Exit(0), but needed for function signature
 }

@@ -94,10 +94,14 @@ void Open(FILE **conn_p, char *path_p, word access, word echo, word * status_p) 
     errno = 0;
     if (strncmp(path_p, ":CI:", 4) == 0) {  // console input
         fp = stdin;
+#ifdef _WIN32
         (void)_setmode(_fileno(fp), _O_BINARY);
+#endif
     } else if (strncmp(path_p, ":CO:", 4) == 0) {
         fp = stdout;
+#ifdef _WIN32
         (void)_setmode(_fileno(fp), _O_BINARY);
+#endif
     } else {
         switch (access) {
         default:

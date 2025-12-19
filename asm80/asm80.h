@@ -31,8 +31,10 @@
 #define NORETURN(func)      __declspec(noreturn) void func
 #elif __GNUC__
 #define NORETURN(func)     __attribute__((noreturn)) void func 
+#define _stricmp            strcasecmp
 #else
 #define NORETURN(func)     void func
+#define _stricmp            strcasecmp
 #endif
 
 #include "plm80types.h"

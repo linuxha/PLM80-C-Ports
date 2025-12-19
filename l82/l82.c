@@ -29,6 +29,14 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
+
+// Cross-platform compatibility
+#ifndef _WIN32
+#include <strings.h>
+int stricmp(const char *s1, const char *s2) {
+    return strcasecmp(s1, s2);
+}
+#endif
 void showVersion(FILE *fp, bool full);
 
 
@@ -220,7 +228,8 @@ void Trac(uint8_t t) {
 
 
 
-__declspec(noreturn) void Exit(int ecode) {
+void Exit(int ecode) __attribute__((noreturn));
+void Exit(int ecode) {
     printf("\nEnd L82\n");
     exit(ecode);
 }
@@ -1584,7 +1593,7 @@ void LoadSymbols(char *fn) {
 
 #define action  temp
 
-void main(int argc, char **argv) {
+int main(int argc, char **argv) {
     uint8_t i;
 
     if (argc != 2) {
@@ -1694,4 +1703,5 @@ void main(int argc, char **argv) {
     WrR2(idaNext);
     WrR2(waSize);
     CloseAll();
+    return 0;
 }

@@ -22,10 +22,11 @@
 
 // $Id: plm.cpp,v 1.2 2004/11/30 23:48:08 Mark Exp $
 #include <cstdio>
+#include <strings.h>
 #include "plm.hpp"
 #include "common.hpp"
 #include "trace.hpp"
-#include "Generated\version.h"
+#include "Generated/version.h"
 void showVersion(FILE *fp, bool full);
 
 byte *address::memory = new byte[0x10000];
@@ -256,7 +257,7 @@ void showVersion(char *description, bool full) {
 
 int main(int argc, char **argv) {
     int pass = 0;
-    if (argc == 2 && _stricmp(argv[1], "-v") == 0) {
+    if (argc == 2 && strcasecmp(argv[1], "-v") == 0) {
         showVersion(stdout, argv[1][1] == 'V');
         exit(0);
     }

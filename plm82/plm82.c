@@ -411,6 +411,26 @@
 #include <string.h>
 #include <stdbool.h>
 #include <ctype.h>
+
+// Cross-platform compatibility definitions
+#ifndef _WIN32
+    #include <limits.h>
+    #ifndef _MAX_PATH
+        #ifdef PATH_MAX
+            #define _MAX_PATH PATH_MAX
+        #else
+            #define _MAX_PATH 260
+        #endif
+    #endif
+    #ifndef stricmp
+        #include <strings.h>
+        #define stricmp strcasecmp
+    #endif
+    #ifndef min
+        #define min(a, b) ((a) < (b) ? (a) : (b))
+    #endif
+#endif
+
 void showVersion(FILE *fp, bool full);
 
 #define MAXSYM  6000

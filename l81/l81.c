@@ -32,6 +32,13 @@ ml80 reconstructed from binary
 #include <stdlib.h>
 #include <stdint.h>
 #include <stdbool.h>
+
+// Compatibility for Linux/Unix systems
+#ifndef _WIN32
+#include <strings.h>
+#define stricmp strcasecmp
+#endif
+
 void showVersion(FILE *fp, bool full);
 
 #define CPMEOF	0x1a
@@ -743,7 +750,7 @@ void InitTab() {
     }
 }
 
-void main(int argc, char **argv) {
+int main(int argc, char **argv) {
     if (argc != 2) {
         fprintf(stderr, "Usage: l81 [-v] | [-V] | file\n");
         Exit(1);

@@ -1,3 +1,5 @@
+#ifndef LINK_H
+#define LINK_H
 /****************************************************************************
  *  link: C port of Intel's LINK v3.0                                       *
  *  Copyright (C) 2020 Mark Ogden <mark.pm.ogden@btinternet.com>            *
@@ -352,73 +354,73 @@ typedef struct {
 #define F_EXTERN        0x40
 #define F_PUBLIC        0x80
 // link.plm
-word actRead;
-byte alignType[6];
-pointer membot;
-pointer bufP;
-symbol_t *comdefInfoP;
-byte CRLF[2];
-module_t *curModule;
-library_t *curObjFile;
-bool mapWanted;
-byte DUMMYREC[3];
-pointer ebufP;
-word modEndOffset;
-byte modEndSegId;
-pointer eoutP;
-pointer erecP;
-byte filePath[16];
-symbol_t *hashTab[128];
-symbol_t *headSegOrderLink;
-symbol_t *headUnresolved;
-word inBlk;
-pointer inbP;
-word inByt;
-byte inCRC;
-byte inFileName[16];
-pointer inP;
-record_t *inRecordP;
-byte linkTmpFile[16];
-word maxExternCnt;
-byte outTranId;
-byte outTranVn;
-byte modEndModTyp;
-byte outModuleName[32];
-word npbuf;
-library_t *objFileHead;
-pointer outP;
-address pad$4565;
-byte printFileName[16];
-word printFileNo;
-word inFile;
-byte recErrMsg[40];
-word recLen;
-word recNum;
-pointer sbufP;
-word segLen[6];
-byte segmap[256];
-pointer soutP;
-word statusIO;
-symbol_t *symbolP;
-word tmpfilefd;
-word tofilefd;
-byte toFileName[16];
-pointer topHeap;
-word unresolved;
-byte VERSION[5];
+extern word actRead;
+extern byte alignType[6];
+extern pointer membot;
+extern pointer bufP;
+extern symbol_t *comdefInfoP;
+extern byte CRLF[2];
+extern module_t *curModule;
+extern library_t *curObjFile;
+extern bool mapWanted;
+extern byte DUMMYREC[3];
+extern pointer ebufP;
+extern word modEndOffset;
+extern byte modEndSegId;
+extern pointer eoutP;
+extern pointer erecP;
+extern byte filePath[16];
+extern symbol_t *hashTab[128];
+extern symbol_t *headSegOrderLink;
+extern symbol_t *headUnresolved;
+extern word inBlk;
+extern pointer inbP;
+extern word inByt;
+extern byte inCRC;
+extern byte inFileName[16];
+extern pointer inP;
+extern record_t *inRecordP;
+extern byte linkTmpFile[16];
+extern word maxExternCnt;
+extern byte outTranId;
+extern byte outTranVn;
+extern byte modEndModTyp;
+extern byte outModuleName[32];
+extern word npbuf;
+extern library_t *objFileHead;
+extern pointer outP;
+extern address pad$4565;
+extern byte printFileName[16];
+extern word printFileNo;
+extern word inFile;
+extern byte recErrMsg[40];
+extern word recLen;
+extern word recNum;
+extern pointer sbufP;
+extern word segLen[6];
+extern byte segmap[256];
+extern pointer soutP;
+extern word statusIO;
+extern symbol_t *symbolP;
+extern word tmpfilefd;
+extern word tofilefd;
+extern byte toFileName[16];
+extern pointer topHeap;
+extern word unresolved;
+extern byte VERSION[5];
 
 
 // link3a.plm
-byte controls[19];
+extern byte controls[19];
 
 // linkov.plm
-byte modName[32];
-byte msgrefin[18];
-record_t *outRecordP;
-byte OVERLAYVERSION[5];
+extern byte modName[32];
+extern byte msgrefin[18];
+extern record_t *outRecordP;
+extern byte OVERLAYVERSION[5];
 
 
-pointer MEMORY;
+extern pointer MEMORY;
 
 void AddExtMap(symbol_t *symP);
 void AddFileToInputList();
@@ -523,3 +525,4 @@ void WriteBaseSizeAlign(word baddr, word bsize, byte align);
 void WriteBytes(pointer bufP, word count);
 void WriteCRLF();
 void WriteStats();
+#endif

@@ -8,6 +8,6 @@
 #define GIT_VERSION_RC  0,0,0,0
 #define GIT_SHA1        "untracked"
 #define GIT_BUILDTYPE   2 
-#define GIT_CTIME       "2021-08-25 14:10:25"
-#define GIT_YEAR        "2021"
+#define GIT_CTIME       "2025-12-18 13:37:41"
+#define GIT_YEAR       "2025"
 #endif

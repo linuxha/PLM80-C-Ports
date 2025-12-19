@@ -44,6 +44,16 @@ void showVersion(FILE *fp, bool full);
 #include <errno.h>
 #define _MAX_PATH 4096
 #define O_BINARY    0
+#ifndef S_IREAD
+#define S_IREAD 0400
+#endif
+#ifndef S_IWRITE
+#define S_IWRITE 0200
+#endif
+#ifndef _stricmp
+#include <strings.h>
+#define _stricmp strcasecmp
+#endif
 #endif
 
 #include "loc.h"

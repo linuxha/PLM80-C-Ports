@@ -400,6 +400,22 @@
 #include <stdbool.h>
 #include <time.h>
 
+// Cross-platform compatibility
+#ifndef _WIN32
+#include <strings.h>
+#include <limits.h>
+#ifdef __linux__
+#include <linux/limits.h>
+#endif
+#ifndef PATH_MAX
+#define PATH_MAX 4096
+#endif
+#define _MAX_PATH PATH_MAX
+int stricmp(const char *s1, const char *s2) {
+    return strcasecmp(s1, s2);
+}
+#endif
+
 void showVersion(FILE *fp, bool full);
 
 

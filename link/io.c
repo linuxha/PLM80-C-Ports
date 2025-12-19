@@ -43,6 +43,14 @@ void showVersion(FILE *fp, bool full);
 #else
 #include <unistd.h>
 #include <errno.h>
+#include <strings.h>
+#define _stricmp strcasecmp
+#ifndef S_IREAD
+#define S_IREAD S_IRUSR
+#endif
+#ifndef S_IWRITE  
+#define S_IWRITE S_IWUSR
+#endif
 #define _MAX_PATH 4096
 #define O_BINARY    0
 #endif

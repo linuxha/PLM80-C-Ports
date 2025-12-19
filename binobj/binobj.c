@@ -26,6 +26,7 @@
 #include <stdint.h>
 #include <ctype.h>
 #include <stdbool.h>
+#include <strings.h>
 
 void showVersion(FILE *fp, bool full);
 
@@ -120,12 +121,12 @@ int main(int argc, char **argv) {
     uint16_t length, addr;
 
 
-    if (argc == 2 && _stricmp(argv[1], "-v") == 0) {
+    if (argc == 2 && strcasecmp(argv[1], "-v") == 0) {
         showVersion(stdout, argv[1][1] == 'V');
         exit(1);
     }
 
-    if (!(argc == 3 || (argc == 4 && stricmp(argv[2], "TO") == 0))) {
+    if (!(argc == 3 || (argc == 4 && strcasecmp(argv[2], "TO") == 0))) {
         fprintf(stderr, "usage: %s -v | -V | binfile [to] objfile\n", basename(argv[0]));
         exit(1);
     }
